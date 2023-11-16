@@ -1,0 +1,12 @@
+.navbar{
+    padding: 10px;
+    box-shadow: 0px 0px 3px rgb(126, 124, 124);
+}
+.centerContainer{
+    width: 90%;
+    margin: auto;
+
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
