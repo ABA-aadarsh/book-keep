@@ -3,12 +3,21 @@ import style from "./AddNewBookForm.module.css"
 import ImagePreview from '../ImagePreview/ImagePreview'
 import { BsSend, BsSendDash } from 'react-icons/bs'
 import {  toast } from 'react-toastify'
+import { service } from '../../appwrite/bookKeepServices'
+import { authService } from '../../appwrite/auth'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function AddNewBookForm() {
 
     const [isDragging,setIsDragging]=useState(false)
     const [file,setFile]=useState(null)
+    const navigate=useNavigate()
     const [fileName,setFileName]=useState("")
+    const [authorName,setAuthorName]=useState("")
+    const [category,setCategory]=useState("")
+    const userID=useSelector(state=>state.auth.userID)
+
 
     const deleteFile=()=>setFile(null)
 
@@ -20,8 +29,6 @@ function AddNewBookForm() {
 
     const handleSubmit=async (e)=>{
         e.preventDefault()
-        
-
         if(fileName==""){
             toast.error(
                 "Filename must be given"
@@ -29,21 +36,32 @@ function AddNewBookForm() {
             return
         }
         else{
-            toast.success("Book Uploading...")
             console.log({
                 file:file  ,
                 name: fileName
             })
-            const form=new FormData()
-            form.append("fileName",fileName)
-            form.append("file",file)
-
-            await fetch("http://localhost:8080/book",{
-                method:"POST",
-                body:form
-            }).then(res=>{
-                return res.json()
-            }).then(res=>console.log(res))
+            let fileId=""
+            if(file){
+                const fileData=await service.uploadPDF(file)
+                fileId=fileData.$id
+            }
+            console.log(userID)
+            const res=await service.addNewBook(
+                {
+                    fileId: fileId,
+                    name: fileName,
+                    userId:userID,
+                    category: category!=""?category:null,
+                    author: authorName
+                }
+            )
+            console.log(res)
+            if(res.$id){
+                toast.success("Book Uploaded")
+                setTimeout(()=>{
+                    navigate(-1)
+                },1000)
+            }
         }
     }
 
@@ -93,7 +111,7 @@ function AddNewBookForm() {
                                     />
                                     </label>
                                 </span>
-                                </>
+                                 </>
                             ):(
                                 <>
                                     {
@@ -108,14 +126,27 @@ function AddNewBookForm() {
                     </div>
                     {
                         file&&
-                        <ImagePreview
-                        file={file}
-                        deleteFile={deleteFile}
-                        />
+                        <span>File Available</span>
                     }
 
 
                 </div>
+            </div>
+            <div className={style.nameInputContainer}>
+                <input type="text"
+                    placeholder='Author Name'
+                    value={authorName}
+                    onChange={(e)=>setAuthorName(e.target.value)}
+                    className={style.nameInput}
+                />
+            </div>
+            <div className={style.nameInputContainer}>
+                <input type="text"
+                    placeholder='Category'
+                    value={category}
+                    onChange={(e)=>setCategory(e.target.value)}
+                    className={style.nameInput}
+                />
             </div>
             <div className={style.nameInputContainer}>
                 <input type="text"
@@ -132,9 +163,7 @@ function AddNewBookForm() {
                 </button>
             </div>
         </form>
-        
     </div>
   )
 }
-
 export default AddNewBookForm

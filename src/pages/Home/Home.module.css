@@ -8,3 +8,8 @@
     flex-grow: 1;
     display: flex;
 }
+.homeMainContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

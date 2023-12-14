@@ -6,16 +6,18 @@
     margin: 10px 20px;
     height: 100px;
 
+    cursor: pointer;
+
     box-shadow: 0px 0px 2px rgb(159, 156, 156);
 }
 
 .imageContainer{
-    width: 200px;
+    width: fit-content;
     height: 80%;
-
-    border: 1px solid black;
 }
-
+.image{
+    height: 100%;
+}
 
 .infoContainer{
 
