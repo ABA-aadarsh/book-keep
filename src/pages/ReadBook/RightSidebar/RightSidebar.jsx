@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import ContentEditable from 'react-contenteditable';
 import style from "./RightSidebar.module.css"
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
 import { MdOutlineRateReview } from "react-icons/md";
 import { MdOutlineNoteAdd } from "react-icons/md";
+import { BiEditAlt } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
 
-function RightSidebar({data}) {
+function RightSidebar({data,setData,updateChangeStatus}) {
   const [sidebarExpanded,setSidebarExpanded]=useState(false)
-  const [sidebarContent,setSidebarContent]=useState(null)
+  const [sidebarContent,setSidebarContent]=useState("")
   const [sidebarContentTitle,setSidebarContentTitle]=useState(null)
   return (
     <div
@@ -15,15 +18,61 @@ function RightSidebar({data}) {
     >
       <div className={style.expandedSidebar}
         style={{
-          display:sidebarExpanded?"unset":"none"
+          display:sidebarExpanded?"flex":"none"
         }}
       >
-        <h3>{sidebarContentTitle}</h3>
-        <p>
+        <div>
+          <h3
+            className={style.sidebarContentTitle}
+          >{sidebarContentTitle}</h3>
+          {/* <div>
+            <button className={style.btn}>
+              <BiEditAlt/>
+            </button>
+            <button className={style.btn}>
+              <MdDelete/>
+            </button>
+          </div> */}
+        </div>
+        <div
+          className={style.sidebarContentContainer}
+        >
+          {/* <p
+            className={style.sidebarContent}
+            placeholder='Type here. '
+            value={sidebarContent}
+            onChange={(e)=>{
+              e.currentTarget.style.height="auto"
+              e.currentTarget.style.height=e.currentTarget.scrollHeight+10+"px"
+              setSidebarContent(e.target.value)
+              setData(prev=>{
+                prev[sidebarContentTitle.toLowerCase()]=e.target.value
+                return prev
+              })
+            }}
+          >
           {
             sidebarContent && sidebarContent
-          } 
-        </p> 
+          }
+          </p> */}
+          {(sidebarContent=='' || sidebarContent=="<br>") && <div className={style.placeholder}>Type something here...</div>}
+          <ContentEditable
+            html={sidebarContent}
+            onChange={(e)=>{
+              updateChangeStatus(true)
+              e.currentTarget.style.height="auto"
+              e.currentTarget.style.height=e.currentTarget.scrollHeight+10+"px"
+              // const data=e.target.value
+              // console.log(data.match(/#(\d+)/g))
+              setSidebarContent(e.target.value)
+              setData(prev=>{
+                prev[sidebarContentTitle.toLowerCase()]=e.target.value
+                return prev
+              })
+            }}
+            className={style.sidebarContent}
+          />
+        </div>
       </div>
       <div className={style.iconsContainer}>
         <button
@@ -31,7 +80,10 @@ function RightSidebar({data}) {
           onClick={()=>{
             if(sidebarContentTitle!="Notes"){
               setSidebarContentTitle("Notes")
+              console.log(data)
               setSidebarContent(data.notes)
+              setSidebarExpanded(true)
+              return
             }
             if(sidebarExpanded==false){
               setSidebarExpanded(true)
@@ -49,6 +101,8 @@ function RightSidebar({data}) {
             if(sidebarContentTitle!="Summary"){
               setSidebarContentTitle("Summary")
               setSidebarContent(data.summary)
+              setSidebarExpanded(true)
+              return
             }
 
             if(sidebarExpanded==false){
@@ -67,6 +121,8 @@ function RightSidebar({data}) {
             if(sidebarContentTitle!="Review"){
               setSidebarContentTitle("Review")
               setSidebarContent(data.review)
+              setSidebarExpanded(true)
+              return
             }
 
             if(sidebarExpanded==false){
@@ -79,11 +135,7 @@ function RightSidebar({data}) {
           {/* review */}
           <MdOutlineRateReview/>
         </button>
-        <button
-          className={style.btn}
-        >
-          <MdOutlineNoteAdd/>
-        </button>
+
       </div>
     </div>
   )

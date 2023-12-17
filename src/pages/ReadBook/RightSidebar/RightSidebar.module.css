@@ -27,4 +27,31 @@
     min-width: 400px;
     min-height: 20px;
     border-right: 1px solid black;
+
+    flex-direction: column;
+}
+.sidebarContentTitle{
+    height: 50px;
+}
+.sidebarContentContainer{
+    display: flex;
+    max-width: 400px;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+.sidebarContent{
+    width: 95%;
+    margin: auto;
+    border: none;
+    margin-top: 0px;
+    /* height: fit-content; */
+    resize: none;
+    overflow-wrap: anywhere;
+}
+
+.placeholder {
+    color: #aaa;
+    position: absolute;
+    pointer-events: none;
+    margin-left: 10px;
 }

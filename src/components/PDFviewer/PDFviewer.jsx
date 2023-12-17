@@ -6,9 +6,9 @@ function PDFviewer({fileId}) {
     const [pdfUrl,setPdfUrl]=useState(null)
     const [pageNumber,setPageNumber]=useState(1)
     const getUrl=async (fileId)=>{
-        console.log(fileId)
+        // console.log(fileId)
         const pdf=await service.getPDFview(fileId)
-        console.log( pdf)
+        // console.log( pdf)
         setPdfUrl(pdf.href)
     }
     useEffect(()=>{
