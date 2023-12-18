@@ -1,5 +1,66 @@
 .sidebar{
-    padding: 10px;
-    width: 250px;
-    border: 0.5px solid black;
+    padding: 10px 20px;
+    min-width: 300px;
+    max-width: 350px;
+    border-right: 1px solid #c9d1d9;
+    background-color: #0d1117f0;
+    color: white;
+}
+.headTitle{
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.headingTitle{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+.listOfCategory{
+
+}
+.category{
+    margin-bottom: 10px;
+}
+.categoryName{
+    letter-spacing: 0.5px;
+    user-select: none;
+}
+.listOfBooks{
+    padding-left: 5px;
+    border-left: 0.5px solid #c9d1d9;
+}
+.book{
+    padding-left: 5px;
+    margin-top: 10px;
+    transition: 0.01s linear;
+}
+.book:hover{
+    color: #339af0;
+}
+.bookName:hover{
+    text-decoration: underline;
+}
+.bookIcon{
+    font-size: 15px;
+    margin-right: 5px;
+}
+.newBtn{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 1ms linear;
+}
+.newBtn:hover{
+    border-color: #339af0;
+    color: #339af0;
 }

@@ -6,3 +6,6 @@
     /* background-color: #010409;
     color: #c9d1d9; */
 }
+li{
+    list-style-type: none;
+}
