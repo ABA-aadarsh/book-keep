@@ -11,20 +11,23 @@ function AccountBtn() {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   return (
-    <div>
-        <button
-          onClick={async ()=>{
-            dispatch(logoutUserStore())
-            toast.info("Logging Out")
-            const res=await authService.logout()
-            console.log(res)
-            if(res){
-              navigate("/login")
-            }
-          }}
-        >
-            <MdAccountCircle/>
-        </button>
+    <div
+      className={style.container}
+    >
+      <button
+        className={style.accountBtn}
+        onClick={async ()=>{
+          dispatch(logoutUserStore())
+          toast.info("Logging Out")
+          const res=await authService.logout()
+          console.log(res)
+          if(res){
+            navigate("/login")
+          }
+        }}
+      >
+          <MdAccountCircle/>
+      </button>
     </div>
   )
 }

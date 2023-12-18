@@ -1,0 +1,21 @@
+.container{
+    border: 2px solid #2b3138;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 28px;
+    padding-left: 4px;
+    transition: 0s linear;
+}
+.containerActive{
+    border: 2px solid #339af0;
+}
+.input{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    height: 100%;
+    color: aliceblue;
+    width: 250px;
+}
