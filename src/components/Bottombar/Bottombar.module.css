@@ -1,5 +1,12 @@
 .container{
-    height: 50px;
+    height: 30px;
     width: 100%;
-    border: 1px solid black;
+    border-top: 2px solid #c9d1d9;
+    background-color: #228be6;
+    color: white;
+    padding: 0px 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }

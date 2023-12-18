@@ -7,12 +7,12 @@ function Bottombar({booksToRead,booksCompleted}) {
     className={style.container}
     >
       <div>
-        <span>Books to Read:</span>
+        <span>Books to Read : </span>
         <span>{booksToRead}</span>
       </div>
 
       <div>
-        <span>Books Completed</span>
+        <span>Books Completed : </span>
         <span>{booksCompleted}</span>
       </div>
     </div>

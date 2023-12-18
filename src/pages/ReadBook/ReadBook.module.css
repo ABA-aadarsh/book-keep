@@ -6,19 +6,69 @@
     flex-direction: column;
 }
 .container{
-    height: calc(100vh - 100px);
-}
-.topPanel{
-    height: 30px;
-    display: flex;
-    align-items: center;
-    gap: 50px;
+    height: calc(100vh - 50px);
 }
 .main{
-    height: calc(100% - 30px);
+    height: calc(100% - 40px);
     display: flex;
 }
+
+
+
+/* top panel */
+.topPanel{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #1b1f24;
+    color: #d8dee9;
+    gap: 50px;
+    padding-left: 20px;
+}
+.tabsContainer{
+    display: flex;
+    gap:20px;
+    list-style: none;
+}
+.tab{
+    padding:3px 5px;
+    transition: 100ms linear;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.tab:hover{
+    background-color: #eceff434;
+}
+
+
 .saveActionContainer{
     display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 20px;
+}
+
+.saveChangesBtn{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    background-color: #495057;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.28px;
+}
+.saveChangesBtn .btnText{
+    margin-bottom: 2px;
+}
+.saveChangesBtn:hover{
+    border-color: #00fa9a;
+    color: #00fa9a;
+}
+
+.saveInfo{
+    display: flex;
+    align-items: center;
     gap: 10px;
 }

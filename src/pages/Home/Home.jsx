@@ -77,7 +77,7 @@ function Home() {
               list={list}
             />
             <Bottombar
-              booksToRead={3}
+              booksToRead={0}
               booksCompleted={0}
             />
           </div>

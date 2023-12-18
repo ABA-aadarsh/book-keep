@@ -29,7 +29,6 @@ function ReadBook() {
         }
       )
       if(res){
-        toast.success("File Saved SuccessFully")
         setIsChanged(false)
       }
       else{
@@ -55,47 +54,72 @@ function ReadBook() {
         <Navbar/>
         <div className={style.container}>
           <div className={style.topPanel}>
-            <ul style={{display:"flex",gap:"20px",listStyle:"none"}}>
-              <li>Overview</li>
-              <li>Settings</li>
+            <ul
+              className={style.tabsContainer}
+            >
+              <li
+                className={style.tab}
+              >Overview</li>
+              <li
+                className={style.tab}
+              >Settings</li>
             </ul>
-            {
+            <div
+              className={style.saveActionContainer}
+            >
+              {
               updationLoading==false ?
-              <div className={style.saveActionContainer}>
-                <div className={style.saveInfo}>
-                  {
-                    isChanged==false ?
-                    (
-                      <>
-                        <FaCheckCircle/>
-                        <span>Uptodate</span>
-                      </>
-                    )
-                    :
-                    (
-                      <>
-                        <IoWarningSharp/>
-                        <span>Unsaved</span>
-                      </>
-                    )
-                  }
-                </div>
-                <button
-                  style={
+                <>
+                  <div className={style.saveInfo}>
                     {
-                      visibility:isChanged?"visible":"hidden"
+                      isChanged==false ?
+                      (
+                        <>
+                          <FaCheckCircle
+                            style={{color:"#1DE9B6"}}
+                          />
+                          <span
+                            style={{color:"#1DE9B6"}}
+                          >Uptodate</span>
+                        </>
+                      )
+                      :
+                      (
+                        <>
+                          <IoWarningSharp
+                            style={{color:"#FFA000"}}
+                          />
+                          <span
+                            style={{color:"#FFA000"}}
+                          >Unsaved</span>
+                        </>
+                      )
                     }
-                  }
-                  onClick={saveChanges}
-                >
-                  <span>Save</span>
-                  <FaCloudUploadAlt/>
-                </button>
-              </div>
+                  </div>
+                  <button
+                    className={style.saveChangesBtn}
+                    style={
+                      {
+                        visibility:isChanged?"visible":"hidden"
+                      }
+                    }
+                    onClick={saveChanges}
+                  >
+                    <FaCloudUploadAlt/>
+                    <span
+                      className={style.btnText}
+                    >Save</span>
+                  </button>
+                </>
               :
               <span>Loading ...</span>
             }
+            </div>
           </div>
+
+
+
+
           <div className={style.main}>
             <PDFviewer
               fileId={bookData?.fileId}
@@ -107,7 +131,7 @@ function ReadBook() {
             />
           </div>
         </div>
-        <Bottombar/>
+        {/* <Bottombar/> */}
       </div>
   )
 }
