@@ -112,7 +112,9 @@ function ReadBook() {
                   </button>
                 </>
               :
-              <span>Loading ...</span>
+              <>
+              <div className={style.ldsRing}><div></div><div></div><div></div><div></div></div>
+              </>
             }
             </div>
           </div>

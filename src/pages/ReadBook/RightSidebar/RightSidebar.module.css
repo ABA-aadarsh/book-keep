@@ -16,6 +16,9 @@
     align-items: center;
     background-color: #22262f;
 }
+.iconActive{
+    color: #ffb300 !important;
+}
 .btn{
     background-color: transparent;
     border: none;
@@ -27,26 +30,38 @@
     text-align: center;
 }
 .expandedSidebar{
-    min-width: 400px;
+    width: 400px;
     min-height: 20px;
-
+    background-color: #121316;
+    color: #d5cccc;
     flex-direction: column;
 }
 .sidebarContentTitle{
     height: 50px;
+    text-align: center;
+    color: #ffb300;
+    padding-top: 10px;
+    letter-spacing: 1px;
 }
 .sidebarContentContainer{
+    position: relative;
+    z-index: 1;
     display: flex;
     max-width: 400px;
-    height: calc(100% - 50px);
+    margin: 0px 10px;
+    border-radius: 5px;
+    max-height: calc(100% - 50px);
+    padding: 10px 0px;
     overflow-y: auto;
+    background-color: #1b1f24;
 }
 .sidebarContent{
     width: 95%;
     margin: auto;
     border: none;
     margin-top: 0px;
-    /* height: fit-content; */
+    outline: none;
+    min-height: 150px;
     resize: none;
     overflow-wrap: anywhere;
 }
@@ -56,4 +71,7 @@
     position: absolute;
     pointer-events: none;
     margin-left: 10px;
+    padding-left: 2px;
+    z-index: -11;
 }
+

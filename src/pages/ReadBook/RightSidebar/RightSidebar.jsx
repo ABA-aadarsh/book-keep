@@ -12,6 +12,12 @@ function RightSidebar({data,setData,updateChangeStatus}) {
   const [sidebarExpanded,setSidebarExpanded]=useState(false)
   const [sidebarContent,setSidebarContent]=useState("")
   const [sidebarContentTitle,setSidebarContentTitle]=useState(null)
+  useEffect(()=>{
+    document.querySelectorAll(`.${style.btn}`).forEach(i=>i.classList.remove(style.iconActive))
+    if(sidebarExpanded){
+      document.querySelector(`.${sidebarContentTitle.toLowerCase()}`).classList.add(style.iconActive)
+    }
+  },[sidebarExpanded,sidebarContentTitle])
   return (
     <div
       className={style.container}
@@ -57,11 +63,9 @@ function RightSidebar({data,setData,updateChangeStatus}) {
           </p> */}
           {(sidebarContent=='' || sidebarContent=="<br>") && <div className={style.placeholder}>Type something here...</div>}
           <ContentEditable
-            html={sidebarContent}
+            html={sidebarContent==""?" ":sidebarContent}
             onChange={(e)=>{
               updateChangeStatus(true)
-              e.currentTarget.style.height="auto"
-              e.currentTarget.style.height=e.currentTarget.scrollHeight+10+"px"
               // const data=e.target.value
               // console.log(data.match(/#(\d+)/g))
               setSidebarContent(e.target.value)
@@ -69,6 +73,8 @@ function RightSidebar({data,setData,updateChangeStatus}) {
                 prev[sidebarContentTitle.toLowerCase()]=e.target.value
                 return prev
               })
+              // e.currentTarget.style.height="auto"
+              // e.currentTarget.style.height=e.currentTarget.scrollHeight+10+"px"
             }}
             className={style.sidebarContent}
           />
@@ -76,8 +82,8 @@ function RightSidebar({data,setData,updateChangeStatus}) {
       </div>
       <div className={style.iconsContainer}>
         <button
-          className={style.btn}
-          onClick={()=>{
+          className={style.btn+" notes"}
+          onClick={(e)=>{
             if(sidebarContentTitle!="Notes"){
               setSidebarContentTitle("Notes")
               console.log(data)
@@ -96,7 +102,7 @@ function RightSidebar({data,setData,updateChangeStatus}) {
           <FaRegNoteSticky/>
         </button>
         <button
-          className={style.btn}
+          className={style.btn+" summary"}
           onClick={()=>{
             if(sidebarContentTitle!="Summary"){
               setSidebarContentTitle("Summary")
@@ -116,7 +122,7 @@ function RightSidebar({data,setData,updateChangeStatus}) {
           <CgNotes/>
         </button>
         <button
-          className={style.btn}
+          className={style.btn+" review"}
           onClick={()=>{
             if(sidebarContentTitle!="Review"){
               setSidebarContentTitle("Review")
