@@ -3,7 +3,7 @@ import Navbar from '../../components/Navbar/Navbar'
 import Bottombar from '../../components/Bottombar/Bottombar'
 import style from "./ReadBook.module.css"
 import PDFviewer from '../../components/PDFviewer/PDFviewer'
-import RightSidebar from './RightSidebar/RightSidebar'
+import RightSidebar from './Overview/RightSidebar/RightSidebar'
 import { service } from '../../appwrite/bookKeepServices'
 import { useParams } from 'react-router-dom'
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -11,13 +11,15 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoWarningSharp } from "react-icons/io5";
 import { authService } from '../../appwrite/auth'
 import { toast } from 'react-toastify'
-
+import Overview from './Overview/Overview'
+import SettingSection from './SettingSection/SettingSection'
 function ReadBook() {
     const {id}=useParams()
     const [bookData,setBookData]=useState(null)
     const [userAddedData,setUserAddedData]=useState(null)
     const [isChanged,setIsChanged]=useState(false)
     const [updationLoading,setUpdationLoading]=useState(false)
+    const [activeTab,setActiveTab]=useState("Overview")
     
     const saveChanges=async ()=>{
       setUpdationLoading(true)
@@ -40,14 +42,20 @@ function ReadBook() {
     const getBookData=async (id)=>{
         const res=await service.getBook(id)
         if(res){
+          // console.log(res)
           setBookData(res)
-          setUserAddedData(res?.added?JSON.parse(res.added):null)
         }
     }
 
     useEffect(()=>{
         getBookData(id)
     },[])
+
+    useEffect(()=>{
+      if(bookData!=null){
+        setUserAddedData(bookData?.added?JSON.parse(bookData.added):null)
+      }
+    },[bookData])
 
   return (
     <div className={style.page}>
@@ -59,9 +67,13 @@ function ReadBook() {
             >
               <li
                 className={style.tab}
+                onClick={()=>activeTab!="Overview" && setActiveTab("Overview")}
+                style={{background: activeTab=="Overview"?"#eceff434":"transparent"}}
               >Overview</li>
               <li
                 className={style.tab}
+                onClick={()=>activeTab!="Settings" && setActiveTab("Settings")}
+                style={{background: activeTab=="Settings"?"#eceff434":"transparent"}}
               >Settings</li>
             </ul>
             <div
@@ -113,27 +125,38 @@ function ReadBook() {
                 </>
               :
               <>
-              <div className={style.ldsRing}><div></div><div></div><div></div><div></div></div>
+              <div className={style.ldsRing}
+              ><div></div><div></div><div></div><div></div></div>
               </>
             }
             </div>
           </div>
 
-
-
-
-          <div className={style.main}>
-            <PDFviewer
-              fileId={bookData?.fileId}
+          {/* settings or overview */}
+          <Overview
+            bookData={bookData}
+            setIsChanged={setIsChanged}
+            setUserAddedData={setUserAddedData}
+            userAddedData={userAddedData}
+            styling={
+              {
+                display :activeTab=="Overview"?"flex":"none"
+              }
+            }
+          />
+          {
+            bookData &&
+            <SettingSection
+              bookData={bookData}
+              setBookData={setBookData}
+              styling={
+                {
+                  display :activeTab=="Settings"?"block":"none"
+                }
+              }
             />
-            <RightSidebar
-              data={userAddedData}
-              setData={setUserAddedData}
-              updateChangeStatus={setIsChanged}
-            />
-          </div>
+          }
         </div>
-        {/* <Bottombar/> */}
       </div>
   )
 }
