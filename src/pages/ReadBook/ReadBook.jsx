@@ -42,7 +42,7 @@ function ReadBook() {
     const getBookData=async (id)=>{
         const res=await service.getBook(id)
         if(res){
-          // console.log(res)
+          console.log(res)
           setBookData(res)
         }
     }

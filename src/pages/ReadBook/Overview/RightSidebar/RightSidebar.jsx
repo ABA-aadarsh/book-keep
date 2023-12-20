@@ -86,7 +86,6 @@ function RightSidebar({data,setData,updateChangeStatus}) {
           onClick={(e)=>{
             if(sidebarContentTitle!="Notes"){
               setSidebarContentTitle("Notes")
-              console.log(data)
               setSidebarContent(data.notes)
               setSidebarExpanded(true)
               return

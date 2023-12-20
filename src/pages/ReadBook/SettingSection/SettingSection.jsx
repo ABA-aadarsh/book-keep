@@ -27,7 +27,7 @@ function SettingSection({bookData,setBookData,styling={}}) {
         setUpdateLoading(true)
         const res=await service.updateBook({
             id: bookData.$id,
-            added: bookData.added,
+            added: JSON.parse(bookData.added),
             completionStatus: bookData.completionStatus,
             ...formValues
         })
@@ -63,7 +63,7 @@ function SettingSection({bookData,setBookData,styling={}}) {
     const clearNotes=async ()=>{
         const res=await service.updateBook({
             id: bookData.$id,
-            added: JSON.parse({notes:"",summary:"",review:""}),
+            added: {notes:"",summary:"",review:""},
             completionStatus: bookData.completionStatus,
             author: bookData.author,
             category: bookData.category,
@@ -71,7 +71,7 @@ function SettingSection({bookData,setBookData,styling={}}) {
         })
         if(res){
             toast.success("Notes Cleared Successfully")
-            setBookData(prev=>{return {...prev,added:JSON.parse({notes:"",summary:"",review:""})}})
+            setBookData(prev=>{return {...prev,added:JSON.stringify({notes:"",summary:"",review:""})}})
         }else{
             toast.error("Failed to clear notes")
         }
@@ -79,7 +79,7 @@ function SettingSection({bookData,setBookData,styling={}}) {
     const resetCompletionStatus=async ()=>{
         const res=await service.updateBook({
             id: bookData.$id,
-            added: bookData.added,
+            added: JSON.parse(bookData.added),
             completionStatus: "not Started",
             author: bookData.author,
             category: bookData.category,
