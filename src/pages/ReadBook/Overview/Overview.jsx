@@ -4,7 +4,7 @@ import RightSidebar from './RightSidebar/RightSidebar'
 import style from "./Overview.module.css"
 
 function Overview(
-    {bookData,setIsChanged,userAddedData,setUserAddedData,styling={}}
+    {bookData,setIsChanged,userAddedData,setUserAddedData,styling={},pageNo,setPageNo=()=>{}}
 ) {
     return (
         <div className={style.container}
@@ -12,11 +12,14 @@ function Overview(
         >
             <PDFviewer
                 fileId={bookData?.fileId}
+                pageNo={pageNo}
+                setPageNo={setPageNo}
             />
             <RightSidebar
                 data={userAddedData}
                 setData={setUserAddedData}
                 updateChangeStatus={setIsChanged}
+                setPageNo={setPageNo}
             />
         </div>
     )

@@ -11,7 +11,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa";
 import parse from 'html-react-parser';
 
-function RightSidebar({data,setData,updateChangeStatus}) {
+function RightSidebar({data,setData,updateChangeStatus,setPageNo}) {
   const [sidebarExpanded,setSidebarExpanded]=useState(false)
   const [sidebarContent,setSidebarContent]=useState("")
   const [sidebarContentTitle,setSidebarContentTitle]=useState(null)
@@ -95,17 +95,31 @@ function RightSidebar({data,setData,updateChangeStatus}) {
               {
                 sidebarContent!="" ?
                 function(){
+                  const goToPage=(e)=>{
+                    const pageNo=e.currentTarget.innerHTML.slice(1)*1
+                    setPageNo(pageNo)
+                  }
                   let text=sidebarContent
                   const pageLinkText=text.match(/#(\d+)/g)
                   if(pageLinkText){
                     pageLinkText.forEach(l=>{
-                      text=text.replace(l,`<span class="${style.pageLinkText}">${l}</span>`)
+                      text=text.replace(l,`<span onclick={goToPage} class="${style.pageLinkText}">${l}</span>`)
                     })
                   }
+                  const options = {
+                    replace: (domNode) => {
+                      if (domNode.attribs && domNode.attribs.onclick) {
+                        // Pass the function directly to onClick
+                        domNode.attribs.onClick = goToPage;
+                        delete domNode.attribs.onclick;
+                      }
+                      return domNode;
+                    },
+                  };
                   return (
                     <p
                     >{
-                      parse(text)
+                      parse(text,options)
                     }</p>
                   )
                 }()
@@ -124,7 +138,7 @@ function RightSidebar({data,setData,updateChangeStatus}) {
                 return prev
               })
             }}
-            rows={Math.max(10, sidebarContent.split('\n').length )}
+            rows={Math.max(10, sidebarContent.split('\n').length+1)}
             className={style.sidebarContentWrite}
             style={
               {

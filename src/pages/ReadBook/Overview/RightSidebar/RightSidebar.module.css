@@ -64,6 +64,7 @@
     background-color: #1b1f24;
 }
 .sidebarContentView, .sidebarContentWrite{
+    font-size: 1rem;
     white-space: 0px;
     width: 95%;
     margin: auto;
@@ -80,6 +81,10 @@
     background-color: transparent;
     color: inherit;
     height: fit-content;
+    overflow: hidden;
+}
+.sidebarContentView{
+    margin-bottom: 1rem;
 }
 .placeholder {
     color: #aaa;
@@ -119,6 +124,11 @@
 }
 .pageLinkText{
     color: #4263eb;
+    border: none;
+    background-color: transparent;
+    font-size: inherit;
+    padding: 0px;
+    outline: none;
     text-decoration: underline;
     transition: 0.1s linear;
     cursor: pointer;

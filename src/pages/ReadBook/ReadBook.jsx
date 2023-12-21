@@ -22,6 +22,7 @@ function ReadBook() {
     const [isChanged,setIsChanged]=useState(false)
     const [updationLoading,setUpdationLoading]=useState(false)
     const [activeTab,setActiveTab]=useState("Overview")
+    const [pageNo,setPageNo]=useState(1)
     
     const saveChanges=async ()=>{
       setUpdationLoading(true)
@@ -151,6 +152,8 @@ function ReadBook() {
                 display :activeTab=="Overview"?"flex":"none"
               }
             }
+            pageNo={pageNo}
+            setPageNo={setPageNo}
           />
           {
             bookData &&

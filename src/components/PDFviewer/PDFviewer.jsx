@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { service } from '../../appwrite/bookKeepServices'
 import style from "./PDFviewer.module.css"
 
-function PDFviewer({fileId}) {
+function PDFviewer({fileId,pageNo,setPageNo}) {
     const [pdfUrl,setPdfUrl]=useState(null)
-    const [pageNumber,setPageNumber]=useState(1)
+    const pdfViewRef=useRef(null)
     const getUrl=async (fileId)=>{
-        // console.log(fileId)
         const pdf=await service.getPDFview(fileId)
-        // console.log( pdf)
         setPdfUrl(pdf.href)
     }
     useEffect(()=>{
@@ -16,12 +14,17 @@ function PDFviewer({fileId}) {
             getUrl(fileId)
         }
     },[fileId])
+    useEffect(()=>{
+        
+    },[setPageNo,pageNo])
   return (
     <div className={style.pdfViewerContainer}>
         {
             pdfUrl &&
-            <iframe src={pdfUrl+`#page=${pageNumber}`}
+            <iframe src={pdfUrl+`#page=${pageNo}`}
                 className={style.pdfViewer}
+                ref={pdfViewRef}
+                onScroll={()=>{console.log("Scrolled")}}
             ></iframe>
         }
     </div>
