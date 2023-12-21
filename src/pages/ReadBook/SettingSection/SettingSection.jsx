@@ -143,6 +143,7 @@ function SettingSection({bookData,setBookData,styling={}}) {
             <button type="submit"
                 disabled={!infoUpdatedStatus}
                 className={style.updateBtn}
+                title={infoUpdatedStatus==false ? "Make changes to update":""}
             >
                 {
                     updateLoading?

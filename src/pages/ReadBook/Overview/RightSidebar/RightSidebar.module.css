@@ -30,13 +30,21 @@
     text-align: center;
 }
 .expandedSidebar{
-    width: 400px;
+    width: 0px;
+    opacity: 0;
     min-height: 20px;
     background-color: #121316;
     color: #d5cccc;
     flex-direction: column;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+}
+.expanded{
+    width: 400px;
+    opacity: 1;
 }
 .sidebarContentTitle{
+    width: 100%;
     height: 50px;
     text-align: center;
     color: #ffb300;
@@ -55,17 +63,20 @@
     overflow-y: auto;
     background-color: #1b1f24;
 }
-.sidebarContent{
+.sidebarContentView, .sidebarContentWrite{
     width: 95%;
     margin: auto;
     border: none;
     margin-top: 0px;
     outline: none;
     min-height: 150px;
-    resize: none;
     overflow-wrap: anywhere;
 }
-
+.sidebarContentWrite{
+    resize: none;
+    background-color: transparent;
+    color: inherit;
+}
 .placeholder {
     color: #aaa;
     position: absolute;
@@ -74,4 +85,28 @@
     padding-left: 2px;
     z-index: -11;
 }
-
+.placeholderWrite{
+    color: #aaa;
+    position: absolute;
+    pointer-events: none;
+    padding-left: 2px;
+    z-index: -11;
+    margin-left: 0px;
+}
+.titleAndModes{
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+.modesContainer{
+    position: absolute;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+.modesContainer .modeBtn{
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
