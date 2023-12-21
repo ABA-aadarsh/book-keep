@@ -13,6 +13,8 @@ import { authService } from '../../appwrite/auth'
 import { toast } from 'react-toastify'
 import Overview from './Overview/Overview'
 import SettingSection from './SettingSection/SettingSection'
+import { IoBook } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 function ReadBook() {
     const {id}=useParams()
     const [bookData,setBookData]=useState(null)
@@ -69,12 +71,18 @@ function ReadBook() {
                 className={style.tab}
                 onClick={()=>activeTab!="Overview" && setActiveTab("Overview")}
                 style={{background: activeTab=="Overview"?"#eceff434":"transparent"}}
-              >Overview</li>
+              >
+                <IoBook/>
+                <span>Overview</span>
+              </li>
               <li
                 className={style.tab}
                 onClick={()=>activeTab!="Settings" && setActiveTab("Settings")}
                 style={{background: activeTab=="Settings"?"#eceff434":"transparent"}}
-              >Settings</li>
+              >
+                <IoSettingsSharp/>
+                <span>Settings</span>
+              </li>
             </ul>
             <div
               className={style.saveActionContainer}

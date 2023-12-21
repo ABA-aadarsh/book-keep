@@ -27,10 +27,16 @@
     list-style: none;
 }
 .tab{
-    padding:3px 5px;
-    transition: 100ms linear;
-    cursor: pointer;
-    border-radius: 3px;
+  padding:3px 5px;
+  transition: 100ms linear;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.tab span{
+  padding-bottom: 2px;
 }
 .tab:hover{
     background-color: #eceff434;

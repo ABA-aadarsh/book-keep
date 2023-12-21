@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import ContentEditable from 'react-contenteditable';
 import style from "./RightSidebar.module.css"
 import { FaRegNoteSticky } from "react-icons/fa6";
@@ -9,6 +9,7 @@ import { MdOutlineRateReview } from "react-icons/md";
 // import { MdDelete } from "react-icons/md";
 import { FaRegEye } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa";
+import parse from 'html-react-parser';
 
 function RightSidebar({data,setData,updateChangeStatus}) {
   const [sidebarExpanded,setSidebarExpanded]=useState(false)
@@ -93,13 +94,22 @@ function RightSidebar({data,setData,updateChangeStatus}) {
             <pre>
               {
                 sidebarContent!="" ?
-                sidebarContent.split("\n").map(i=>(
-                  <p
-                    key={Math.random()*10000}
-                  >
-                    {i}
-                  </p>
-                )):
+                function(){
+                  let text=sidebarContent
+                  const pageLinkText=text.match(/#(\d+)/g)
+                  if(pageLinkText){
+                    pageLinkText.forEach(l=>{
+                      text=text.replace(l,`<span class="${style.pageLinkText}">${l}</span>`)
+                    })
+                  }
+                  return (
+                    <p
+                    >{
+                      parse(text)
+                    }</p>
+                  )
+                }()
+                :
                 <div className={style.placeholderWrite}>Click on write mode and start writing...</div>
               }
             </pre>
@@ -114,6 +124,7 @@ function RightSidebar({data,setData,updateChangeStatus}) {
                 return prev
               })
             }}
+            rows={Math.max(10, sidebarContent.split('\n').length )}
             className={style.sidebarContentWrite}
             style={
               {
