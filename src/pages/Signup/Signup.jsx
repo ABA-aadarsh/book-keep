@@ -80,6 +80,7 @@ function Signup() {
             >Already have an account ? 
                 <Link
                     to={"/login"}
+                    className={style.loginLink}
                 >
                     Login
                 </Link>

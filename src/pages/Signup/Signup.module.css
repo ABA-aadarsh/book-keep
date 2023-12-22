@@ -1,5 +1,5 @@
 .container{
-    background-color: aliceblue;
+    background-color: #0d1117;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -10,7 +10,8 @@
 
 .centerContainer{
     min-width: 400px;
-    background-color: white;
+    color: aliceblue;
+    background-color: #161b22;
     padding: 16px;
     padding-top: 30px;
     border-radius: 4px;
@@ -39,6 +40,12 @@
     border-radius: 5px;
     border: none;
     box-shadow: 0px 0px 1px rgb(61, 61, 61);
+    background-color: #0d1117;
+    color: aliceblue;
+    outline: none;
+}
+.input:focus{
+    outline: 1px solid #00daff;
 }
 
 .input:invalid{
@@ -52,8 +59,8 @@
     margin: 20px auto;
     border: none;
     border-radius: 5px;
-    background-color: #2786ff;
-    color: white;
+    background-color: #4c566a;
+    color: #d8dee9;
     padding: 10px 16px;
     font-size: 18px;
     letter-spacing: 0.7px;
@@ -63,6 +70,7 @@
 
 .signupBtn:hover{
     background-color: #1479f9;
+    color: aliceblue;
     box-shadow: 1px 1px 1px rgb(61, 61, 61);
 }
 
@@ -70,4 +78,11 @@
     display: block;
     text-align: center;
     margin-bottom: 10px;
+}
+.loginLink{
+    color: #339af0;
+    padding-left: 5px;
+}
+.loginLink:hover{
+    color: #00daff;
 }

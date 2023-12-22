@@ -55,8 +55,10 @@ function Login() {
 
             <span
                 className={style.signupMessage}
-            >Don't have an account ? 
-                <Link to={"/signup"}>
+            >Don't have an account ?  
+                <Link to={"/signup"}
+                    className={style.signupLink}
+                >
                 Create Account
                 </Link>
             </span>
