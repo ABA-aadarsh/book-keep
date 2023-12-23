@@ -22,7 +22,7 @@ function ReadBook() {
     const [isChanged,setIsChanged]=useState(false)
     const [updationLoading,setUpdationLoading]=useState(false)
     const [activeTab,setActiveTab]=useState("Overview")
-    const [pageNo,setPageNo]=useState(1)
+    const [pageNo,setPageNo]=useState(0)
     
     const saveChanges=async ()=>{
       setUpdationLoading(true)

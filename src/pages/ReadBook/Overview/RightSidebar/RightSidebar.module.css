@@ -4,6 +4,11 @@
     height: 100%;
     /* border-left: 0.2px solid #898b8e; */
     display: flex;
+    position: absolute;
+  right: 0px;
+  height: calc(100vh - 90px);
+  z-index: 5;
+  background-color: #121316;
 }
 .iconsContainer{
     padding-top: 20px;
@@ -37,9 +42,16 @@
     flex-direction: column;
     overflow: hidden;
     transition: 0.3s ease-in-out;
+    flex-shrink: 0;
+/* 
+    position: absolute;
+    right: 0px;
+    height: calc(100vh - 90px);
+    z-index: 5; */
 }
 .expanded{
     width: 400px;
+    min-width: 400px;
     opacity: 1;
 }
 .sidebarContentTitle{

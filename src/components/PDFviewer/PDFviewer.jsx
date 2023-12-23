@@ -3,44 +3,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Document, Page } from 'react-pdf';
 import { service } from '../../appwrite/bookKeepServices'
 import style from "./PDFviewer.module.css"
-import { pdfjs } from 'react-pdf';
-import { envConf } from '../../envConf/envConf';
-import { authService } from '../../appwrite/auth';
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 
-// pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
-function PDFviewer({fileId,pageNo,setPageNo}) {
-//     const [pdfUrl,setPdfUrl]=useState(null)
-//     const pdfViewRef=useRef(null)
-//     const getUrl=async (fileId)=>{
-//         const pdf=await service.getPDFview(fileId)
-//         setPdfUrl(pdf.href)
-//     }
-//     useEffect(()=>{
-//         if(fileId!=null){
-//             getUrl(fileId)
-//         }
-//     },[fileId])
-//     useEffect(()=>{
-        
-//     },[setPageNo,pageNo])
-//   return (
-//     <div className={style.pdfViewerContainer}>
-//         {
-//             pdfUrl &&
-//             <iframe src={pdfUrl+`#page=${pageNo}`}
-//                 className={style.pdfViewer}
-//                 ref={pdfViewRef}
-//                 onScroll={()=>{console.log("Scrolled")}}
-//             ></iframe>
-//         }
-//     </div>
-//   )
-
-
+function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
   const [numPages, setNumPages] = useState();
   const [pdfURL,setPdfUrl]=useState(null)
-  const ref=useRef(null)
+  const [currentPage,setCurrentPage]=useState(1)
+  const [scale,setScale]=useState(1)
 
   const onDocumentLoadSuccess=({ numPages })=>{
     const doc=document.querySelector(`.${style.pdfViewer}`)
@@ -58,15 +28,65 @@ function PDFviewer({fileId,pageNo,setPageNo}) {
     const pdf=service.getPDFview(fileId)
     setPdfUrl(pdf.href)
   }
+  const pageScroll=(number)=>{
+    const page=document.querySelector(`#page${number}`)
+    const container=document.querySelector(`.${style.pdfViewer}`)
+    if(page && container){
+      container.scrollTo(0,page.offsetTop-30)
+      console.log(number)
+    }
+  }
   useEffect(()=>{
-    // console.log(fileId)
+    if(pageNo!=0){
+      const number=pageNo.split("#")[0]
+      pageScroll(number)
+    }
+  },[pageNo,setPageNo])
+  useEffect(()=>{
     if(fileId!=undefined || fileId!=null){
         getUrl(fileId)
     }
   },[fileId])
+  
+  useEffect(()=>{
+    console.log(sidebarExpanded)
+  },[sidebarExpanded])
 
   return (
-    <div className={style.pdfViewerContainer}>
+    <div className={style.pdfViewerContainer}
+      style={{
+        maxWidth: sidebarExpanded?`calc(100vw - 450px)`:"calc(100vw - 50px)"
+      }}
+    >
+      <div
+        className={style.topPanel}
+      >
+        <div
+          className={style.zoomContainer}
+        >
+          <button
+            className={style.zoomBtns}
+            onClick={()=>{
+              if(scale>0.20){
+                setScale(prev=>prev-0.1)
+              }
+            }}
+          >
+            <FaMinus/>
+          </button>
+          <span>{Math.floor(scale*100)}%</span>
+          <button
+            className={style.zoomBtns}
+            onClick={()=>{
+              if(scale<2){
+                setScale(prev=>prev+0.1)
+              }
+            }}
+          >
+            <FaPlus/>
+          </button>
+        </div>
+      </div>
         {
             pdfURL 
 
@@ -74,15 +94,30 @@ function PDFviewer({fileId,pageNo,setPageNo}) {
 
             <Document file={pdfURL} onLoadSuccess={onDocumentLoadSuccess}
             className={style.pdfViewer}
+            onScroll={(e)=>{
+
+              // const container=e.currentTarget
+              // const scrollPosition = container.scrollTop;
+              // const totalHeight = container.scrollHeight - container.clientHeight;
+              // const currPage =Math.floor( ((scrollPosition / totalHeight) * 100) +1)
+              // if(currPage!=currentPage){
+              //   setCurrentPage(currPage)
+              // }
+            }}
             >
                 {
                 Array.apply(null, Array(numPages)).map((x,i)=> i+1).map((pageNumber)=>{
                     return (
                       <div
-                      key={pageNumber}
-                      className={style.page}
+                        key={pageNumber}
+                        className={style.page}
+                        id={`page${pageNumber}`}
                       >
-                        <Page pageNumber={pageNumber} key={pageNumber} renderAnnotationLayer={false} renderTextLayer={false}
+                        <Page pageNumber={pageNumber} 
+                        key={pageNumber} 
+                        renderAnnotationLayer={false} 
+                        renderTextLayer={false}
+                        scale={scale}
                         />            
                       </div>
                     )

@@ -11,8 +11,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa";
 import parse from 'html-react-parser';
 
-function RightSidebar({data,setData,updateChangeStatus,setPageNo}) {
-  const [sidebarExpanded,setSidebarExpanded]=useState(false)
+function RightSidebar({data,setData,updateChangeStatus,setPageNo,sidebarExpanded,setSidebarExpanded}) {
   const [sidebarContent,setSidebarContent]=useState("")
   const [sidebarContentTitle,setSidebarContentTitle]=useState(null)
   const [mode,setMode]=useState("view")
@@ -31,10 +30,11 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo}) {
     <div
       className={style.container}
     >
-      <div className={style.expandedSidebar + " " + (sidebarExpanded && style.expanded)}
-        // style={{
-        //   width:sidebarExpanded?"400px":"0px"
-        // }}
+      <div className={style.expandedSidebar }
+        style={{
+          width:sidebarExpanded?"400px":"0px",
+          opacity:sidebarExpanded?"1":"0"
+        }}
       >
         <div className={style.titleAndModes}>
           <h3
@@ -97,7 +97,8 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo}) {
                 function(){
                   const goToPage=(e)=>{
                     const pageNo=e.currentTarget.innerHTML.slice(1)*1
-                    setPageNo(pageNo)
+                    console.log(pageNo)
+                    setPageNo(pageNo+"#"+Math.random())
                   }
                   let text=sidebarContent
                   const pageLinkText=text.match(/#(\d+)/g)
@@ -218,23 +219,3 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo}) {
 }
 
 export default RightSidebar
-
-
-{/* <p
-            className={style.sidebarContent}
-            placeholder='Type here. '
-            value={sidebarContent}
-            onChange={(e)=>{
-              e.currentTarget.style.height="auto"
-              e.currentTarget.style.height=e.currentTarget.scrollHeight+10+"px"
-              setSidebarContent(e.target.value)
-              setData(prev=>{
-                prev[sidebarContentTitle.toLowerCase()]=e.target.value
-                return prev
-              })
-            }}
-          >
-          {
-            sidebarContent && sidebarContent
-          }
-          </p> */}
