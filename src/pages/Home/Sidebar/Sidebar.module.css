@@ -2,7 +2,8 @@
     padding: 10px 20px;
     min-width: 300px;
     max-width: 350px;
-    border-right: 1px solid #c9d1d9;
+    /* border-right: 0.2px solid #898b8e; */
+    border-right: 0.2px solid #1c1d1e;
     background-color: #0d1117f0;
     color: white;
 }

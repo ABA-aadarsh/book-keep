@@ -147,6 +147,7 @@ class Service{
         }
     }
     getPDFview(fileId){
+        // console.log(fileId)
         try{
             return  this.bucket.getFileView(
                 envConf.bucketId,
@@ -155,6 +156,7 @@ class Service{
         } catch(error){
             console.log(error)
             return false
+
         }
     }
 }

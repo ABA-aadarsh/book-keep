@@ -3,7 +3,8 @@
     background-color: #010409ed;
     color: #c9d1d9;
     height: 50px;
-    border-bottom: 1px solid #c9d1d9;
+    /* border-bottom: 0.2px solid #4d4e4f; */
+    border-bottom: 0.2px solid #1c1d1e;
     padding: 5px;
 }
 .centerContainer{

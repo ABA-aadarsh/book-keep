@@ -12,8 +12,6 @@ function Overview(
         >
             <PDFviewer
                 fileId={bookData?.fileId}
-                pageNo={pageNo}
-                setPageNo={setPageNo}
             />
             <RightSidebar
                 data={userAddedData}
