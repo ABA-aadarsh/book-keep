@@ -22,9 +22,10 @@ function Login() {
                 if(email!="" && password!=""){
                     setLoading(true)
                     const res=await authService.login({email,password})
+                    console.log(res.userId)
                     if(res!=null){
                         const {name}=await authService.getCurrentUser()
-                        dispatch(loginUserStore({userID:res.$id,userData:{name:name}}))
+                        dispatch(loginUserStore({userID:res.userId,userData:{name:name}}))
                         navigate("/")
                     }else{
                         toast.error("Login Failed")

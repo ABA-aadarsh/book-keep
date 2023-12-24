@@ -10,10 +10,11 @@ import { useSelector } from 'react-redux'
 
 function Home() {
   const [list,setList]=useState([])
-  const userID=useSelector(state=>state.auth.userID)
+  const {userID}=useSelector(state=>state.auth)
   const [categoriesList,setCategoriesList]=useState([])
   const getBookList=async()=>{
-    const res= await service.listBooks(userID) 
+    console.log(userID)
+    const res= await service.listBooks(userID)
     setList(res.documents)
     console.log(res.documents)
     categoriesList.splice(0,categoriesList.length)

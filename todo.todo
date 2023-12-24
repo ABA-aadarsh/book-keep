@@ -1,0 +1,5 @@
+TODO :
+
+1) update currentpage variable as user scrolls in the pdf
+2) to save book data as the home page reloads. 
+3) use this data to show previously available categories in add new book form

@@ -28,7 +28,7 @@ function Signup() {
                     })
                     if(res!=null && res.$id){
                         const {name}=await authService.getCurrentUser()
-                        dispatch(loginUserStore({userID:res.$id,userData:{name:name}}))
+                        dispatch(loginUserStore({userID:res.userId,userData:{name:name}}))
                         navigate("/")
                     }
                     setLoading(false)

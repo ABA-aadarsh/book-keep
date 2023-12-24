@@ -34,7 +34,7 @@ function Navbar() {
             <div
               className={style.searchAndAccount}
             >
-            <Searchbar/>
+            {/* <Searchbar/> */}
             <AccountBtn/>
             </div>
         </div>

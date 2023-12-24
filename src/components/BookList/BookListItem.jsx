@@ -29,12 +29,11 @@ function BookListItem({data}) {
                     or some other things like if there is any notes on it maybe or maybe not
                 */}
             </div>
-            <div className={style.bookStatus}>
+            {/* <div className={style.bookStatus}>
                 {
                     completionStatus
                 }
-                {/* completion bar */}
-            </div>
+            </div> */}
         </div>
     </div>
   )

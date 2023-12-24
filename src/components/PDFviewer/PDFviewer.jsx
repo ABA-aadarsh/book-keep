@@ -11,6 +11,7 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
   const [pdfURL,setPdfUrl]=useState(null)
   const [currentPage,setCurrentPage]=useState(1)
   const [scale,setScale]=useState(1)
+  var debounce_timer;
 
   const onDocumentLoadSuccess=({ numPages })=>{
     const doc=document.querySelector(`.${style.pdfViewer}`)
@@ -33,8 +34,27 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
     const container=document.querySelector(`.${style.pdfViewer}`)
     if(page && container){
       container.scrollTo(0,page.offsetTop-8)
-      console.log(number)
     }
+  }
+  const updateCurrentPage=(minPage,maxPage)=>{
+    function handleIntersection(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const componentId = entry.target.id;
+          const page=entry.target.id
+          setCurrentPage(page.substr(4)*1)
+        }
+      });
+    }
+    const options = {
+      root: document.querySelector(`.${style.pdfViewer}`),
+      rootMargin: '0px',
+      threshold: 0.8, 
+    };
+    const observer = new IntersectionObserver(handleIntersection, options);
+    let pages=[...document.querySelectorAll(`.${style.page}`)]
+    pages=pages.splice(minPage,maxPage)
+    pages.forEach(component => observer.observe(component));
   }
   useEffect(()=>{
     if(pageNo!=0){
@@ -84,12 +104,21 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
             <FaPlus/>
           </button>
         </div>
-        <div>
+        <div
+          className={style.pageNumberContainer}
+        >
           <input 
-            type="text" 
+            type="number" 
+            className={style.currentPageInput}
             value={currentPage}
             onChange={(e)=>setCurrentPage(e.currentTarget.value)}
-
+            onKeyDown={(e)=>{
+              if(e.key=="Enter"){
+                if(!isNaN(currentPage)){
+                  pageScroll(currentPage)
+                }
+              }
+            }}
           />
           <span> of {numPages}</span>
         </div>
@@ -102,14 +131,16 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
             <Document file={pdfURL} onLoadSuccess={onDocumentLoadSuccess}
             className={style.pdfViewer}
             onScroll={(e)=>{
-
-              // const container=e.currentTarget
-              // const scrollPosition = container.scrollTop;
-              // const totalHeight = container.scrollHeight - container.clientHeight;
-              // const currPage =Math.floor( ((scrollPosition / totalHeight) * 100) +1)
-              // if(currPage!=currentPage){
-              //   setCurrentPage(currPage)
-              // }
+              if(debounce_timer) {
+                window.clearTimeout(debounce_timer);
+              }
+              const container=e.currentTarget
+              const scrollPosition = container.scrollTop;
+              const totalHeight = container.scrollHeight - container.clientHeight;
+              const currPage =Math.floor( ((scrollPosition / totalHeight) * 100) +1)
+              debounce_timer = window.setTimeout(function() {
+                updateCurrentPage((currPage-10)<0?0:(currPage-10),currPage+10)
+              }, 100);
             }}
             >
                 {
