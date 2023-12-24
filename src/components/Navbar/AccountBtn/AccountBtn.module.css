@@ -52,6 +52,7 @@
     cursor: pointer;
     text-transform: uppercase;
     border-radius: 0px 0px 3px 3px;
+    background-color: #49505797;
 }
 .signoutBox:hover{
     background-color: #495057;

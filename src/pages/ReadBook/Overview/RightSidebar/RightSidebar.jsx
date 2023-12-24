@@ -119,6 +119,7 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo,sidebarExpanded
                   };
                   return (
                     <p
+                      className={style.sidebarContentParagraph}
                     >{
                       parse(text,options)
                     }</p>

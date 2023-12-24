@@ -38,18 +38,19 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
   }
   const updateCurrentPage=(minPage,maxPage)=>{
     function handleIntersection(entries) {
-      entries.forEach(entry => {
+      for(let i=0;i<[...entries].length;i++){
+        const entry=entries[i]
         if (entry.isIntersecting) {
-          const componentId = entry.target.id;
           const page=entry.target.id
           setCurrentPage(page.substr(4)*1)
+          break
         }
-      });
+      }
     }
     const options = {
       root: document.querySelector(`.${style.pdfViewer}`),
       rootMargin: '0px',
-      threshold: 0.8, 
+      threshold: 0.3, 
     };
     const observer = new IntersectionObserver(handleIntersection, options);
     let pages=[...document.querySelectorAll(`.${style.page}`)]

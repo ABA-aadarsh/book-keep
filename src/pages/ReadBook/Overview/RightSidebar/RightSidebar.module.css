@@ -148,3 +148,6 @@
 .pageLinkText:hover{
     color: #4dabf7 ;
 }
+.sidebarContentParagraph{
+    white-space: pre-line;
+}
