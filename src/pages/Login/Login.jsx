@@ -5,23 +5,31 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { authService } from '../../appwrite/auth'
+import { useDispatch } from 'react-redux'
+import { loginUserStore } from '../../store/AuthSlice'
 
 function Login() {
     const navigate=useNavigate()
+    const dispatch=useDispatch()
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
+    const [loading,setLoading]=useState(false)
   return (
     <div className={style.container}>
         <form className={style.centerContainer}
             onSubmit={async (e)=>{
                 e.preventDefault()
                 if(email!="" && password!=""){
+                    setLoading(true)
                     const res=await authService.login({email,password})
                     if(res!=null){
+                        const {name}=await authService.getCurrentUser()
+                        dispatch(loginUserStore({userID:res.$id,userData:{name:name}}))
                         navigate("/")
                     }else{
                         toast.error("Login Failed")
                     }
+                    setLoading(false)
                 }else{
                     toast.error("Invalid Email and Password")
                 }
@@ -50,7 +58,15 @@ function Login() {
                 className={style.loginBtn}
                 type='submit'
             >
-                Login
+                {
+                    !loading?
+                    <>Login</>:
+                    <>
+                        <div className={style.ldsRing}
+                        ><div></div><div></div><div></div><div></div></div>
+                    </>
+                }
+
             </button>
 
             <span

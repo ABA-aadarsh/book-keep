@@ -32,7 +32,7 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
     const page=document.querySelector(`#page${number}`)
     const container=document.querySelector(`.${style.pdfViewer}`)
     if(page && container){
-      container.scrollTo(0,page.offsetTop-30)
+      container.scrollTo(0,page.offsetTop-8)
       console.log(number)
     }
   }
@@ -47,10 +47,6 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
         getUrl(fileId)
     }
   },[fileId])
-  
-  useEffect(()=>{
-    console.log(sidebarExpanded)
-  },[sidebarExpanded])
 
   return (
     <div className={style.pdfViewerContainer}
@@ -74,7 +70,9 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
           >
             <FaMinus/>
           </button>
-          <span>{Math.floor(scale*100)}%</span>
+          <span
+            className={style.zoomValue}
+          >{Math.floor(scale*100)}%</span>
           <button
             className={style.zoomBtns}
             onClick={()=>{
@@ -85,6 +83,15 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
           >
             <FaPlus/>
           </button>
+        </div>
+        <div>
+          <input 
+            type="text" 
+            value={currentPage}
+            onChange={(e)=>setCurrentPage(e.currentTarget.value)}
+
+          />
+          <span> of {numPages}</span>
         </div>
       </div>
         {

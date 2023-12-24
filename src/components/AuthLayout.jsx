@@ -15,7 +15,8 @@ function AuthLayout({children}) {
             dispatch(
                 loginUserStore(
                     {
-                        userID: res.$id
+                        userID: res.$id,
+                        userData: {name:res.name}
                     }
                 )
             )
@@ -25,6 +26,7 @@ function AuthLayout({children}) {
         }
     }
     useEffect(()=>{
+        console.log(userLoggedIn)
         if(isAuthenticated==false){
             authenticateFunction()
         }

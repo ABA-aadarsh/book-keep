@@ -13,22 +13,25 @@ function Signup() {
     const [username,setUsername]=useState("")
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
+    const [loading,setLoading]=useState(true)
   return (
     <div className={style.container}>
         <form className={style.centerContainer}
             onSubmit={async(e)=>{
                 e.preventDefault()
                 if(email!="" && password!="" && username!=""){
+                    setLoading(true)
                     const res=await authService.createAccount({
                         email: email,
                         password: password,
                         name: username
                     })
                     if(res!=null && res.$id){
-                        console.log(res)
-                        dispatch(loginUserStore({userID:res.$id}))
+                        const {name}=await authService.getCurrentUser()
+                        dispatch(loginUserStore({userID:res.$id,userData:{name:name}}))
                         navigate("/")
                     }
+                    setLoading(false)
                 }else{
                     toast.error("Invalid Email, Password or Username")
                 }
@@ -72,7 +75,14 @@ function Signup() {
                 className={style.signupBtn}
                 type='submit'
             >
-                Signup
+                {
+                    !loading?
+                    <>Sign up</>:
+                    <>
+                        <div className={style.ldsRing}
+                        ><div></div><div></div><div></div><div></div></div>
+                    </>
+                }
             </button>
 
             <span

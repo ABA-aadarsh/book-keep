@@ -2,18 +2,20 @@
     position: relative;
     flex-grow: 1;
     background-color: #2a2a2e;
-    overflow: hidden;
+    overflow-x: hidden;
     transition: 0.3s linear;
 }
 .pdfViewer{
-    height: 100%;
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
     overflow-x: auto;
     border: none;
     width: 100%;
     scroll-behavior: smooth;
-    padding: 40px 10px;
+    padding: 20px 10px;
     position: relative;
+    color: white;
+    text-align: center;
 }
 .page{
     max-width: fit-content;
@@ -25,8 +27,8 @@
     height: 30px;
     background-color: #38383d;
     color: white;
-    position: absolute;
-    top: 0px;
+    /* position: absolute;
+    top: 0px; */
     width: 100%;
     z-index: 2;
     padding: 2px;
@@ -57,4 +59,8 @@
     display: flex;
     gap: 5px;
     user-select: none;
+}
+.zoomValue{
+    width: 55px;
+    text-align: center;
 }

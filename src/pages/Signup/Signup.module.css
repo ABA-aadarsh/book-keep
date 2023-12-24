@@ -55,7 +55,11 @@
 }
 
 .signupBtn{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 45px;
     margin: 20px auto;
     border: none;
     border-radius: 5px;
@@ -86,3 +90,42 @@
 .loginLink:hover{
     color: #00daff;
 }
+
+/* loader */
+.ldsRing {
+    display: inline-block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    transform: scale(0.3);
+  }
+  .ldsRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: ldsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .ldsRing div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .ldsRing div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .ldsRing div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes ldsRing {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

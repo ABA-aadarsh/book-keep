@@ -17,7 +17,7 @@ function AddNewBookForm() {
     const [authorName,setAuthorName]=useState("")
     const [category,setCategory]=useState("")
     const userID=useSelector(state=>state.auth.userID)
-
+    const [loading,setLoading]=useState(false)
 
     const deleteFile=()=>setFile(null)
 
@@ -29,6 +29,7 @@ function AddNewBookForm() {
 
     const handleSubmit=async (e)=>{
         e.preventDefault()
+        
         if(fileName==""){
             toast.error(
                 "Filename must be given"
@@ -36,6 +37,7 @@ function AddNewBookForm() {
             return
         }
         else{
+            setLoading(true)
             console.log({
                 file:file  ,
                 name: fileName
@@ -59,9 +61,10 @@ function AddNewBookForm() {
             if(res.$id){
                 toast.success("Book Uploaded")
                 setTimeout(()=>{
-                    navigate(-1)
+                    navigate("/")
                 },1000)
             }
+            setLoading(false)
         }
     }
 
@@ -95,7 +98,7 @@ function AddNewBookForm() {
                             (
                                 <>
                                 <span
-                                style={{color:"#047cb7"}}
+                                style={{color:"rgb(4, 152, 224)"}}
                                 >Drag and Drop Here</span>
                                 <span>or</span>
                                 <span>
@@ -126,7 +129,10 @@ function AddNewBookForm() {
                     </div>
                     {
                         file&&
-                        <span>File Available</span>
+                        <ImagePreview
+                            file={file}
+                            deleteFile={deleteFile}
+                        />
                     }
 
 
@@ -137,7 +143,7 @@ function AddNewBookForm() {
                     placeholder='Author Name'
                     value={authorName}
                     onChange={(e)=>setAuthorName(e.target.value)}
-                    className={style.nameInput}
+                    className={style.nameInput+" "+style.input}
                 />
             </div>
             <div className={style.nameInputContainer}>
@@ -145,7 +151,7 @@ function AddNewBookForm() {
                     placeholder='Category'
                     value={category}
                     onChange={(e)=>setCategory(e.target.value)}
-                    className={style.nameInput}
+                    className={style.nameInput+" "+style.input}
                 />
             </div>
             <div className={style.nameInputContainer}>
@@ -159,7 +165,14 @@ function AddNewBookForm() {
                     className={style.submitBtnContainer}
                     type='submit'
                 >
-                    <BsSendDash/>
+                    {
+                        loading ?
+                        <>
+                            <div className={style.ldsRing}
+                            ><div></div><div></div><div></div><div></div></div>
+                        </>:
+                        <BsSendDash/>
+                    }
                 </button>
             </div>
         </form>

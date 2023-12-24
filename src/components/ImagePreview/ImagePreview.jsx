@@ -9,13 +9,22 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 
 const  ImagePreview=({file,deleteFile})=>{
+  const [scale,setScale]=useState(1)
 
   return (
     <div className={style.container}>
       
       <div className={style.box}>
       <Document file={file} >
-        <Page pageNumber={1}/>
+        <Page pageNumber={1}
+          className={style.pagePreview}
+          scale={scale}
+          onLoadSuccess={(data)=>{
+            const scaleX=(500-20)/data.originalWidth
+            const scaleY=(400-20)/data.originalHeight
+            setScale(Math.min(scaleX,scaleY))
+          }}
+        />
       </Document>
 
       <div className={style.btnContainer}>
