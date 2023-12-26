@@ -83,10 +83,10 @@
     border: none;
     margin-top: 0px;
     outline: none;
-    min-height: 10rem;
+    min-height: 15rem;
     overflow-wrap: anywhere;
     
-    line-height: 1rem;
+    line-height: 1.5rem;
 }
 .sidebarContentWrite{
     resize: none;
@@ -96,7 +96,8 @@
     overflow: hidden;
 }
 .sidebarContentView{
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
+    /* padding-bottom: 1.5rem; */
 }
 .placeholder {
     color: #aaa;
@@ -149,5 +150,5 @@
     color: #4dabf7 ;
 }
 .sidebarContentParagraph{
-    white-space: pre-line;
+    white-space: break-spaces;
 }

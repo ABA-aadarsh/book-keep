@@ -140,7 +140,7 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo,sidebarExpanded
                 return prev
               })
             }}
-            rows={Math.max(10, sidebarContent.split('\n').length+1)}
+            rows={Math.max(1, sidebarContent.split('\n').length)}
             className={style.sidebarContentWrite}
             style={
               {
