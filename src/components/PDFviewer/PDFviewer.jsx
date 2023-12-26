@@ -43,14 +43,14 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
         if (entry.isIntersecting) {
           const page=entry.target.id
           setCurrentPage(page.substr(4)*1)
-          break
+          return
         }
       }
     }
     const options = {
       root: document.querySelector(`.${style.pdfViewer}`),
       rootMargin: '0px',
-      threshold: 0.3, 
+      threshold: 0.5, 
     };
     const observer = new IntersectionObserver(handleIntersection, options);
     let pages=[...document.querySelectorAll(`.${style.page}`)]
@@ -138,10 +138,10 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded}) {
               const container=e.currentTarget
               const scrollPosition = container.scrollTop;
               const totalHeight = container.scrollHeight - container.clientHeight;
-              const currPage =Math.floor( ((scrollPosition / totalHeight) * 100) +1)
+              const currPage =Math.floor( ((scrollPosition / totalHeight) * 100))
               debounce_timer = window.setTimeout(function() {
                 updateCurrentPage((currPage-10)<0?0:(currPage-10),currPage+10)
-              }, 100);
+              }, 50);
             }}
             >
                 {

@@ -1,9 +1,10 @@
 .container{
     height: 30px;
+    flex-shrink: 0;
     width: 100%;
     /* border-top: 2px solid #c9d1d9; */
-    background-color: #242629;
-    color: white;
+    background-color: #6D7898;
+    color: black;
     padding: 0px 10px;
 
     display: flex;

@@ -13,10 +13,10 @@ function Home() {
   const {userID}=useSelector(state=>state.auth)
   const [categoriesList,setCategoriesList]=useState([])
   const getBookList=async()=>{
-    console.log(userID)
+    // console.log(userID)
     const res= await service.listBooks(userID)
-    setList(res.documents)
-    console.log(res.documents)
+    setList([...res.documents])
+    // console.log(res.documents)
     categoriesList.splice(0,categoriesList.length)
     res.documents.forEach(doc=>{
       const i=categoriesList.findIndex(i=>i.categoryName==doc.category)

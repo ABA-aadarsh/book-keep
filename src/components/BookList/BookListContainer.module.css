@@ -1,6 +1,6 @@
 .container{
     position: relative;
-    flex-grow: 1;
+    height: calc(100vh - 50px - 30px);
 }
 .headingContainer{
     padding: 20px 0px;
@@ -29,4 +29,8 @@
 .newBtn:hover{
     border-color: #339af0;
     color: #339af0;
+}
+.bookListContainer{
+    max-height: calc(100% - 72px);
+    overflow-y: auto;
 }

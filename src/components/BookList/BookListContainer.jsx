@@ -30,7 +30,9 @@ function BookListContainer({list}) {
                 >New</span>
             </button>
         </div>
-        <div>
+        <div
+            className={style.bookListContainer}
+        >
             {
                 list?.map((i,index)=>(
                     <BookListItem
