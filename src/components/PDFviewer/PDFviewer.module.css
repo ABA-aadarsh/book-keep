@@ -59,6 +59,10 @@
     display: flex;
     gap: 5px;
     user-select: none;
+    padding: 0px 5px;
+    border: 1px solid #505054;
+    border-top: none;
+    border-bottom: none;
 }
 .zoomValue{
     width: 55px;

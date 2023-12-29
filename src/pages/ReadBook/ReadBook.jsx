@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import Bottombar from '../../components/Bottombar/Bottombar'
 import style from "./ReadBook.module.css"
-import PDFviewer from '../../components/PDFviewer/PDFviewer'
-import RightSidebar from './Overview/RightSidebar/RightSidebar'
 import { service } from '../../appwrite/bookKeepServices'
 import { useParams } from 'react-router-dom'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoWarningSharp } from "react-icons/io5";
-import { authService } from '../../appwrite/auth'
 import { toast } from 'react-toastify'
 import Overview from './Overview/Overview'
 import SettingSection from './SettingSection/SettingSection'
 import { IoBook } from "react-icons/io5";
 import { IoSettingsSharp } from "react-icons/io5";
+import { GiCheckMark } from "react-icons/gi";
 function ReadBook() {
     const {id}=useParams()
     const [bookData,setBookData]=useState(null)
@@ -23,6 +20,7 @@ function ReadBook() {
     const [updationLoading,setUpdationLoading]=useState(false)
     const [activeTab,setActiveTab]=useState("Overview")
     const [pageNo,setPageNo]=useState(0)
+    const [trackPage,setTrackPage]=useState(null)
     
     const saveChanges=async ()=>{
       setUpdationLoading(true)
@@ -85,6 +83,34 @@ function ReadBook() {
                 <span>Settings</span>
               </li>
             </ul>
+            <div
+              className={style.trackPageContainer}
+            >
+              <span>Mark Progress</span>
+              <span
+                className={style.trackPage}
+              >{trackPage?.currentPage || 1}</span>
+              <button
+                className={style.updateCompletionStatusBtn}
+                onClick={async ()=>{
+                  setUpdationLoading(true)
+                  const res=await service.updateBook(
+                    {
+                      id: id,
+                      ...bookData,
+                      added: JSON.parse(bookData.added),
+                      completionStatus:JSON.stringify(trackPage)
+                    }
+                  )
+                  if(res){
+                    setUpdationLoading(false)
+                    setBookData(prev=>{return {...prev,completionStatus: JSON.stringify(trackPage)}})
+                  }
+                }}
+              >
+                <GiCheckMark/>
+              </button>
+            </div>
             <div
               className={style.saveActionContainer}
             >
@@ -154,6 +180,7 @@ function ReadBook() {
             }
             pageNo={pageNo}
             setPageNo={setPageNo}
+            setTrackPage={setTrackPage}
           />
           {
             bookData &&

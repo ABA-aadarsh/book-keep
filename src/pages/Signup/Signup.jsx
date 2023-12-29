@@ -13,7 +13,7 @@ function Signup() {
     const [username,setUsername]=useState("")
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
-    const [loading,setLoading]=useState(true)
+    const [loading,setLoading]=useState(false)
   return (
     <div className={style.container}>
         <form className={style.centerContainer}

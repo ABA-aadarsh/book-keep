@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import ContentEditable from 'react-contenteditable';
+import React, { useEffect, useState } from 'react'
 import style from "./RightSidebar.module.css"
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
