@@ -102,13 +102,15 @@ function ReadBook() {
                     {
                       id: id,
                       ...bookData,
-                      added: JSON.parse(bookData.added),
+                      added: userAddedData,
                       completionStatus:trackPage ? JSON.stringify(trackPage) : "not Started"
                     }
                   )
                   if(res){
                     setUpdationLoading(false)
-                    setBookData(prev=>{return {...prev,completionStatus: JSON.stringify(trackPage)}})
+                    // setBookData(prev=>{return {...prev,
+                      
+                    // completionStatus: JSON.stringify(trackPage)}})
                   }
                 }}
               >

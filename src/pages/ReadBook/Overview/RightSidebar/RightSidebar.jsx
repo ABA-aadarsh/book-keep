@@ -24,7 +24,7 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo,sidebarExpanded
     if(data!=null && sidebarContentTitle!=null){
       setSidebarContent(data[sidebarContentTitle.toLowerCase()])
     }
-  },[sidebarContentTitle])
+  },[data])
   return (
     <div
       className={style.container}
