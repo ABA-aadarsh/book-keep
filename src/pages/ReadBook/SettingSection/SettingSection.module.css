@@ -88,6 +88,7 @@
 }
 .actionBox .btn{
     position: absolute;
+    width: 115px;
     right: 10px;
     /* border: 1px solid #171515; */
     border: none;

@@ -4,10 +4,20 @@ import { useForm } from 'react-hook-form'
 import { service } from '../../../appwrite/bookKeepServices'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import ModalContainer from './ModalContainer'
 
 function SettingSection({bookData,setBookData,styling={}}) {
     const [updateLoading,setUpdateLoading]=useState(false)
     const [infoUpdatedStatus,setInfoUpdatedStatus]=useState(false)
+    const [modalData,setModalData]=useState(
+        {
+            title:"Demo Title",
+            message:"This is a demo Message",
+            action:()=>{},
+            buttonMessage:"Confirm Action",
+            show:false
+        }
+    )
     const navigate=useNavigate()
     const {register,handleSubmit}=useForm(
         {
@@ -174,7 +184,19 @@ function SettingSection({bookData,setBookData,styling={}}) {
                 <span>Click on the button "Confirm Delete" to delete this record</span>
                 <button
                     className={style.btn}
-                    onClick={deleteRecord}
+                    onClick={
+                        ()=>{
+                            setModalData(
+                                {
+                                    title:"Delete Record",
+                                    message:`Click on the button "Confirm Delete" to delete this record`,
+                                    action:deleteRecord,
+                                    buttonMessage:"Confirm Delete",
+                                    show:true
+                                }
+                            )
+                        }
+                    }
                 >Confirm Delete</button>
             </div>
             <div
@@ -186,7 +208,19 @@ function SettingSection({bookData,setBookData,styling={}}) {
                 <span>Click on the button "Confirm Clear" to delete all added notes, summary and review</span>
                 <button
                     className={style.btn}
-                    onClick={clearNotes}
+                    onClick={
+                        ()=>{
+                            setModalData(
+                                {
+                                    title:"Clear Notes, Summary and Review",
+                                    message:`Click on the button "Confirm Clear" to delete all added notes, summary and review`,
+                                    action:clearNotes,
+                                    buttonMessage:"Confirm Clear",
+                                    show:true
+                                }
+                            )
+                        }
+                    }
                 >Confirm Clear</button>
             </div>
             <div
@@ -198,10 +232,28 @@ function SettingSection({bookData,setBookData,styling={}}) {
                 <span>Click on the button "Confirm Reset" to reset your completion status</span>
                 <button
                     className={style.btn}
-                    onClick={resetCompletionStatus}
+                    onClick={
+                        ()=>{
+                            setModalData(
+                                {
+                                    title:"Reset Completion Status",
+                                    message:`Click on the button "Confirm Reset" to reset your completion status`,
+                                    action:resetCompletionStatus,
+                                    buttonMessage:"Confirm Reset",
+                                    show:true
+                                }
+                            )
+                        }
+                    }
                 >Confirm Reset</button>
             </div>
         </div>
+        <ModalContainer
+            {
+                ...modalData
+            }
+            setModalData={setModalData}
+        />
     </div>
   )
 }

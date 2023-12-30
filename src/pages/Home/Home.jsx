@@ -78,8 +78,8 @@ function Home() {
               list={list}
             />
             <Bottombar
-              booksToRead={list?.length || 0}
-              booksCompleted={0}
+              booksToRead={list.filter(i=>(i.completionStatus=="not Started" || JSON.parse(i.completionStatus).currentPage!=JSON.parse(i.completionStatus).totalPage)).length}
+              booksCompleted={list.filter(i=>(i.completionStatus!="not Started" && JSON.parse(i.completionStatus).currentPage==JSON.parse(i.completionStatus).totalPage)).length}
             />
           </div>
         </div>
