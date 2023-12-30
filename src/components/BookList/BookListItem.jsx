@@ -23,17 +23,39 @@ function BookListItem({data}) {
         <div className={style.infoContainer}>
             <div className={style.bookInfo}>
                 <h3>{name}</h3>
-                <p>{author}</p>
-                {/* todo
-                    some other info like genre, labels(category it belongs in the user library)
-                    or some other things like if there is any notes on it maybe or maybe not
-                */}
+                <p>{author!=""?author:"-----"}</p>
             </div>
-            {/* <div className={style.bookStatus}>
+            <div className={style.bookStatus}>
                 {
-                    completionStatus
+                    completionStatus!="not Started"
+                    ?
+                    <>
+                    
+                    <div
+                        className={style.progressBar}
+                    >
+                        <div
+                            className={style.completed}
+                            style={
+                                {
+                                    width: JSON.parse(completionStatus).currentPage/JSON.parse(completionStatus).totalPage*100+"%"
+                                }
+                            }
+                        ></div>
+                    </div>
+                    <span>
+                        {
+                            JSON.parse(completionStatus).currentPage==JSON.parse(completionStatus).totalPage ?
+                            <>Completed</>
+                            :
+                            <>{Math.floor(JSON.parse(completionStatus).currentPage/JSON.parse(completionStatus).totalPage*100)} %</>
+                        }
+                    </span>
+                    </>
+                    :
+                    <>Status: Not Started</>
                 }
-            </div> */}
+            </div>
         </div>
     </div>
   )

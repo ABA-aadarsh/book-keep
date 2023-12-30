@@ -18,7 +18,7 @@ function Overview(
                 pageNo={pageNo}
                 sidebarExpanded={sidebarExpanded}
                 setTrackPage={setTrackPage}
-                defaultPage={bookData?.completionStatus?JSON.parse(bookData?.completionStatus).currentPage:1}
+                defaultPage={(bookData==null || bookData.completionStatus=="not Started")?1:(JSON.parse(bookData.completionStatus)?.currentPage)}
             />
             <RightSidebar
                 data={userAddedData}
