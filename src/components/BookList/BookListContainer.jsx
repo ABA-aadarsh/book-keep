@@ -34,12 +34,22 @@ function BookListContainer({list}) {
             className={style.bookListContainer}
         >
             {
+                list.length>0?
                 list?.map((i,index)=>(
                     <BookListItem
                         key={index}
                         data={i}
                     />
-                ))
+                )):
+                <p
+                    style={
+                        {
+                            textAlign:"center",
+                            marginTop:"20px",
+                            color:"#898686"
+                        }
+                    }
+                >List is Empty. Add books</p>
             }
         </div>
     </div>

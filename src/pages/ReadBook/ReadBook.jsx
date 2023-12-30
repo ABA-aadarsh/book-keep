@@ -93,13 +93,17 @@ function ReadBook() {
               <button
                 className={style.updateCompletionStatusBtn}
                 onClick={async ()=>{
+                  if(isChanged==true){
+                    confirm("Please save notes first.")
+                    return
+                  }
                   setUpdationLoading(true)
                   const res=await service.updateBook(
                     {
                       id: id,
                       ...bookData,
                       added: JSON.parse(bookData.added),
-                      completionStatus:JSON.stringify(trackPage)
+                      completionStatus:trackPage ? JSON.stringify(trackPage) : "not Started"
                     }
                   )
                   if(res){

@@ -90,7 +90,7 @@ function PDFviewer({fileId,pageNo,setPageNo,sidebarExpanded,setTrackPage=()=>{},
         totalPage:numPages
       })
     }
-  },[currentPage])
+  },[currentPage,numPages])
 
   return (
     <div className={style.pdfViewerContainer}

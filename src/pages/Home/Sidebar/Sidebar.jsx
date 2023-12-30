@@ -39,6 +39,7 @@ function Sidebar({categoriesList=[]}) {
         className={style.listOfCategory}
       >
         {
+          categoriesList.length>0?
           categoriesList.map(category=>{
             return (
               <li
@@ -77,7 +78,17 @@ function Sidebar({categoriesList=[]}) {
                 </ul>
               </li>
             )
-          })
+          }):
+          <span
+            style={
+              {
+                width:"100%",
+                display:"inline-block",
+                textAlign:"center",
+                color:"#898686"
+              }
+            }
+          >List is Empty. Add Books</span>
         }
       </ul>
     </div>

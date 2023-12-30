@@ -24,7 +24,7 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo,sidebarExpanded
     if(data!=null && sidebarContentTitle!=null){
       setSidebarContent(data[sidebarContentTitle.toLowerCase()])
     }
-  },[data])
+  },[sidebarContentTitle])
   return (
     <div
       className={style.container}
@@ -70,18 +70,6 @@ function RightSidebar({data,setData,updateChangeStatus,setPageNo,sidebarExpanded
           className={style.sidebarContentContainer}
         >
           {((sidebarContent=='' || sidebarContent=="<br>") && mode=="write") && <div className={style.placeholder}>Type something here...</div>}
-          {/* <ContentEditable
-            html={sidebarContent==""?"<br>":sidebarContent}
-            onChange={(e)=>{
-              updateChangeStatus(true)
-              setSidebarContent(e.target.value)
-              setData(prev=>{
-                prev[sidebarContentTitle.toLowerCase()]=e.target.value
-                return prev
-              })
-            }}
-            className={style.sidebarContent}
-          /> */}
           <div
             className={style.sidebarContentView}
             style={

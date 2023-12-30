@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from "./BookListItem.module.css"
 import bookIcon from "/book-icon.png"
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +9,9 @@ function BookListItem({data}) {
     const getImagePreview=(fileId)=>{
         return ""
     }
+    useEffect(()=>{
+        console.log(completionStatus)
+    },[])
   return (
     <div className={style.container}
         onClick={()=>{navigate(`/book/${$id}`)}}
