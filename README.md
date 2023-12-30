@@ -63,6 +63,8 @@ Update info about book, Delete Book, Clear your Notes and Clear your progress.
 
 ### I acknowledge that Theme of this project is highly inspired from the dark theme of github
 
+### Mobile view is not supported currently
+
 
 
 
