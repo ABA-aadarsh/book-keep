@@ -1,4 +1,4 @@
-# Book Keep
+# Book Keep (THIS NEEDS "FEW" IMPROVEMENTS)
 
 A simple platform to keep all your books at one place (currently supports only pdf format). Assign Notes and summary with books on go. 
 
